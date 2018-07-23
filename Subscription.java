@@ -1,5 +1,3 @@
-
-import java.util.Calendar;
 import java.util.Date;
 
 /*
@@ -10,10 +8,10 @@ import java.util.Date;
 
 /**
  *
- * @author Dell
+ * @author Natnael Tezera
  */
 public class Subscription {
-    private String company;
+    private Company company;
     private boolean isFree;
     private double subscriptionFee;
     private int paymentDate;
@@ -23,7 +21,7 @@ public class Subscription {
     
     
     public Subscription(){
-        company = "no company name";
+        company = new Company();
         isFree = true;
         subscriptionFee = 0.0;
         Date d = new Date();
@@ -33,24 +31,28 @@ public class Subscription {
         isCanceled = false;
     }
     
-    public Subscription(String theCompany, boolean freeValue, double sFee, int pDate,
+    public Subscription(Company theCompany, boolean freeValue, double sFee, int pDate,
             int pMonth, int pYear, boolean canceledValue){
         company = theCompany;
         isFree = freeValue;
-        subscriptionFee = sFee;
+        subscriptionFee = theCompany.getSubscriptionFee();
         paymentDate = pDate;
         paymentMonth = pMonth;
         paymentYear = pYear;
         isCanceled = canceledValue;
     }
     
+    public Subscription(Company theCompany){
+        company = theCompany;
+        
+    }
     // set company name
-    public void setCompany(String companyName){
+    public void setCompany(Company companyName){
         company = companyName;
     }
     
     //get company name
-    public String getCompanyName(){
+    public Company getCompanyName(){
         return company;
     }
     
@@ -109,10 +111,4 @@ public class Subscription {
         return isCanceled;
     }
     
-    
-    public static void main (String[] args){
-        Subscription s = new Subscription();
-        System.out.println(s.paymentDate);
-        System.out.println(s.isFree);
-    }
 }
