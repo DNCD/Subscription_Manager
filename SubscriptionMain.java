@@ -10,11 +10,14 @@
  */
 public class SubscriptionMain {
     public static void main(String [] args){
-        Company c = new Company("Netflix", 11, "monthly");
-        System.out.println(c.getCompanyName());
+        Company c = new Company();
+        c.setCompanyName("netflix");
+        c.setSubscriptionFee(8.99);
+        c.setYearFounded(0);
         Subscription newSub = new Subscription(c);
+        newSub.setCompany(c);
         System.out.println(newSub.getCompanyName());
-        System.out.println(newSub.getSubscriptionFee());
+
         
     }
     

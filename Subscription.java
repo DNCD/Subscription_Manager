@@ -52,8 +52,12 @@ public class Subscription {
     }
     
     //get company name
-    public Company getCompanyName(){
+    public Company getCompany(){
         return company;
+    }
+    
+    public String getCompanyName(){
+        return company.getCompanyName();
     }
     
       // set free status
