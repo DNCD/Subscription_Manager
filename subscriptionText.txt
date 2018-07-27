@@ -1,4 +1,4 @@
-HBO,14.95,monthly:
-Netflix,8:99,monthly:
-CBS,15.67,monthly:
+HBO 14.95 monthly
+Netflix 8.99 monthly
+CBS 15.67 monthly
 

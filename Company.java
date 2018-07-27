@@ -130,4 +130,7 @@ public class Company {
         return subscriptionFee;
     }
     
+    public String toString(){
+        return companyName + "  $" + subscriptionFee + " " + subscriptionType;
+    }
 }

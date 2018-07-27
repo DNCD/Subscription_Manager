@@ -1,8 +1,12 @@
 
-import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,68 +21,50 @@ import java.io.IOException;
 public class SubscriptionMain {
     public static void main(String [] args) throws IOException{
         
-        String fileName = "C:\\Users\\Dell\\Documents\\NetBeansProjects\\Subscription Manager\\src\\subscriptionText.txt";
-        StringBuilder companyName = new StringBuilder();
-        StringBuilder subFeeString = new StringBuilder();
+       // String fileName = "C:\\Users\\Dell\\Documents\\NetBeansProjects\\Subscription Manager\\src\\subscriptionText.txt";
+        String companyName;
+        String subStringFee;
         double subscriptionFee;
-        String subscriptionType = "";
-        String line = null;
-        int j = 0;
-        int i = 0;
+        String subscriptionType;
+        Scanner x;
+        ArrayList<Company> cHolder = new ArrayList<Company>();
         
         try{
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            line = bufferedReader.readLine();
-            while(line != null){
-                
-               i = 0;
-               
-
-               subscriptionType = "";
-               
-                   while(line.charAt(i) != ','){
-                       companyName.insert(i, line.charAt(i));
-                       i++;
-                   }
-                   i++;
-                   while(line.charAt(i) != ',' ){
-                           subFeeString.insert(0, line.charAt(i));
-                           i++;
-                   }
-                   subFeeString.reverse();
-                   i++;
-                   while(line.charAt(i) != ':' ){
-                       subscriptionType = subscriptionType + line.charAt(i);
-                       i++;
-                   }
-                   i += 2;
-                   
-               
-               System.out.println(companyName);
-               companyName.delete(0, i);
-               System.out.println(subFeeString);
-               subFeeString.delete(0, i);
-               System.out.println(subscriptionType);
-               line = bufferedReader.readLine();
-               
-            }
-            bufferedReader.close();
+         x = new Scanner(new File("C:\\\\Users\\\\Dell\\\\Documents\\\\NetBeansProjects\\\\Subscription Manager\\\\src\\\\subscriptionText.txt"));
+         while(x.hasNext()){
+             companyName = x.next();
+             subStringFee = x.next();
+             subscriptionType = x.next();
+             subscriptionFee = Double.parseDouble(subStringFee);
+             Company c = new Company(companyName, subscriptionFee, subscriptionType);
+             cHolder.add(c);
+         }
         }catch(FileNotFoundException ex){
                 System.out.println(ex);
-        }
-
-//        Company c = new Company();
-//        c.setCompanyName("netflix");
-//        c.setSubscriptionFee(8.99);
-//        c.setYearFounded(0);
-//        Subscription newSub = new Subscription(c);
-//        newSub.setCompany(c);
-//        System.out.println(newSub.getCompanyName());
-
+        }  
         
+        
+        BufferedWriter bufWriter = null;
+        
+        for(int i = 0; i < cHolder.size(); i++){
+            
+            try{
+           OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("C:\\Users\\Dell\\Documents\\NetBeansProjects\\Subscription Manager\\src\\output.txt", true));
+           bufWriter = new BufferedWriter(writer); 
+           bufWriter.write(cHolder.get(i).toString());
+           bufWriter.newLine();
+           
+           //bufWriter.close();
+            }catch (Exception e){
+               e.printStackTrace();
+            }finally{
+                try{
+                    //close the writer
+                    bufWriter.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
-    
-    
-    
 }
